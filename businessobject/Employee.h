@@ -3,6 +3,7 @@
 #include <string>
 #include "../libs/json.hpp"
 
+
 using json = nlohmann::json;
 using namespace std;
 
@@ -22,6 +23,8 @@ public:
     int GetId();
     string ToString();
     json ToJson(); 
-    // string to_string(float number);
+    //Create an employee
+    // void CreateNewMember(Company* company);
 };
+
 #endif  

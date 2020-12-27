@@ -25,23 +25,25 @@ EmployeeData::EmployeeData(string fileName){
             j["SSN"],
             j["BDate"],
             j["Address"],
+            // j["Sex"],
             ((string)j["Sex"])[0],
             j["Salary"],
             j["SuperSSN"],
             j["DNO"]
         );
 
-         _data.push_back(p);
+        _data.push_back(p);
     }
-    inFile.close();
-   
+    inFile.close(); 
     
 }   
 
 int EmployeeData::GetMaxId(){
     return _maxId;
 }
+
 int EmployeeData::PushBack(Employee e){
+    
     if (_maxId < e.GetId()){
         _maxId = e.GetId();
     }
@@ -79,13 +81,44 @@ Employee EmployeeData::Get(int i){
     return _data[i];
 }
 
-int EmployeeData::Update(int i, Employee employee){
-    if(i<0) return -1;
-    else if(i>_data.size()) return -1;
-
-    _data[i] = employee;
-
-    else if(_maxId < employee.Id) _maxId = employee.Id;
+// void EmployeeData::CreateNewMember(){
+//     EmployeeData employeeArray;
     
-    else return _maxId;
+//     cout<<"overridding create new a mem"<<endl;
+// }
+
+bool EmployeeData::CreateNewMember(){
+    ofstream outFile("Database", ios::out);
+    if(!outFile) return false;
+    else{
+        for(Employee employee : _data){
+            outFile<<employee.ToJson()<<endl;
+        }
+        outFile.close();
+        return true;
+    }
 }
+
+bool EmployeeData::DeleteMember(int i){
+
+    if(i < 0){
+        return false;
+    }else{
+        for(int index=i; index<_data.size()-1; ++index){
+            _data[index] = _data[index+1];   
+        }
+        _data.pop_back();
+        return true;   
+    }
+}
+
+// int EmployeeData::Update(int i, Employee employee){
+//     if(i<0) return -1;
+//     if(i>_data.size()) return -1;
+
+//     _data[i] = employee;
+
+//     if(_maxId < employee.Id) _maxId = employee.Id;
+    
+//     else return _maxId;
+// }

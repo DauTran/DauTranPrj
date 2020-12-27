@@ -1,1 +1,1 @@
-g++ main.cpp businessobject/Employee.cpp dataaccess/EmployeeData.cpp -o main.exe
+g++ main.cpp businessobject/Company.cpp businessobject/Employee.cpp dataaccess/EmployeeData.cpp -o main.exe

@@ -57,3 +57,12 @@ json Employee::ToJson(){
 
     return j;
 }
+
+// void Employee::CreateNewMember(Company* company){
+
+    // EmployeeData employeeArray;
+
+    // employeeArray.PushBack(*company);
+    // employeeData.ExportToFile("Employee.data");
+
+// }
