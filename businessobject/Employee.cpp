@@ -19,6 +19,11 @@ Employee::Employee(int id, string fName, string mInit, string lName, long ssn, s
 int Employee::GetId(){
     return Id;
 }
+//?
+int Employee::SetId(int id){
+    Id = id;
+    return id;
+}
 
 string Employee::ToString(){
     string s;
@@ -57,6 +62,31 @@ json Employee::ToJson(){
 
     return j;
 }
+
+Employee ChangeValues(Employee& employee){
+    employee.Id -= 1;
+    return employee;
+}
+
+// ostream& operator<<(ostream& out, Employee employee){
+//     return out;
+// }
+
+    // friend void ChangeValues(int id, string fName = " ", string mInit = " ", string lName = " ", long ssn = 0, string bDate = " ", string address = " ", char sex = '', int salary = 0, long superSSN = 0, int dno = 0){
+    //     Id = id;
+    //     FName = fName;
+    //     MInit = mInit;
+    //     LName = lName;
+    //     SSN = ssn;
+    //     BDate = bDate;
+    //     Address = address;
+    //     Sex = sex;
+    //     Salary = salary;
+    //     SuperSSN = superSSN;
+    //     DNO = dno;
+        
+    // }
+
 
 // void Employee::CreateNewMember(Company* company){
 

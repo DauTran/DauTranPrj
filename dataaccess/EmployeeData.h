@@ -8,7 +8,7 @@
 
 using namespace std;
 
-class EmployeeData:public CompanyData{
+class EmployeeData : public CompanyData{
 private:
     vector<Employee> _data;
     int _maxId;
@@ -24,20 +24,19 @@ public:
     //Return a referrent object
     Employee* GetPointer(int i);   //Khai bao con tro kieu Employee
 
-    int ExportToFile(string filename);
-
     // Return size of a array of object Employee
     int GetSize();
+    
 
     // Return a object in array employee
     Employee Get(int i);
 
-    // Update value
-    // int Update(int i, Employee employee);
+    int ExportToFile(string filename);
 
-    // void CreateNewMember();
- 	bool CreateNewMember();
-    bool DeleteMember(int i);
+ 	bool CreateNewMember(string ); // Q1
+    bool DeleteMember(int i); // Q2
+
+    // Company UpdateRowTable(Company* );
 
     
 };

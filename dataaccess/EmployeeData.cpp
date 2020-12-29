@@ -25,7 +25,6 @@ EmployeeData::EmployeeData(string fileName){
             j["SSN"],
             j["BDate"],
             j["Address"],
-            // j["Sex"],
             ((string)j["Sex"])[0],
             j["Salary"],
             j["SuperSSN"],
@@ -41,14 +40,13 @@ EmployeeData::EmployeeData(string fileName){
 int EmployeeData::GetMaxId(){
     return _maxId;
 }
-
-int EmployeeData::PushBack(Employee e){
-    
-    if (_maxId < e.GetId()){
-        _maxId = e.GetId();
-    }
-    _data.push_back(e);
-    return _maxId;
+//Id auto insert by this function PushBack()
+int EmployeeData::PushBack(Employee employee){
+    // assume: there is 6 employees than _maxId=6
+    _maxId++; // _maxId = 7 
+    employee.SetId(_maxId);  // id = 7
+    _data.push_back(employee);  //add to array
+    return _maxId; // return 7
 }
 
 Employee* EmployeeData::GetPointer(int i){
@@ -56,6 +54,18 @@ Employee* EmployeeData::GetPointer(int i){
     if (i >= 0 && i<_data.size())
         e = &_data[i];
     return e;
+}
+
+
+int EmployeeData::GetSize(){
+    return _data.size();
+}
+
+Employee EmployeeData::Get(int i){
+    string s("index out of bound!");
+    if(i<0) throw s;
+    if(i >= _data.size()) throw s;
+    return _data[i];
 }
 
 int EmployeeData::ExportToFile(string filename){
@@ -70,55 +80,43 @@ int EmployeeData::ExportToFile(string filename){
     return 1;
 }
 
-int EmployeeData::GetSize(){
-    return _data.size();
-}
-
-Employee EmployeeData::Get(int i){
-    string s("index out of bound!");
-    if(i<0) throw s;
-    if(i >= _data.size()) throw s;
-    return _data[i];
-}
-
-// void EmployeeData::CreateNewMember(){
-//     EmployeeData employeeArray;
-    
-//     cout<<"overridding create new a mem"<<endl;
-// }
-
-bool EmployeeData::CreateNewMember(){
-    ofstream outFile("Database", ios::out);
-    if(!outFile) return false;
-    else{
+bool EmployeeData::CreateNewMember(string fileName){
+    ofstream outFile(fileName, ios::app);
+    if(!outFile){
+        return false;
+    }else{
         for(Employee employee : _data){
             outFile<<employee.ToJson()<<endl;
         }
         outFile.close();
+
         return true;
     }
 }
 
 bool EmployeeData::DeleteMember(int i){
-
     if(i < 0){
         return false;
     }else{
         for(int index=i; index<_data.size()-1; ++index){
             _data[index] = _data[index+1];   
+            _data[index] = ChangeValues(_data[index]);
         }
         _data.pop_back();
+        ofstream outFile("Employee.data", ios::out);
+        for(Employee employee : _data){
+            outFile<<employee.ToJson()<<endl;
+        }
+        outFile.close();
+
         return true;   
     }
 }
 
-// int EmployeeData::Update(int i, Employee employee){
-//     if(i<0) return -1;
-//     if(i>_data.size()) return -1;
-
-//     _data[i] = employee;
-
-//     if(_maxId < employee.Id) _maxId = employee.Id;
-    
-//     else return _maxId;
+// Company EmployeeData::UpdateRowTable(Company* company){
+//     company = new Employee();
+//     return *company;
 // }
+
+
+
