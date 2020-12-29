@@ -99,8 +99,20 @@ bool EmployeeData::DeleteMember(int i){
         return false;
     }else{
         for(int index=i; index<_data.size()-1; ++index){
-            _data[index] = _data[index+1];   
-            _data[index] = ChangeValues(_data[index]);
+            _data[index].Id = _data[index+1].Id - 1;
+            _data[index].FName = _data[index+1].FName;
+            _data[index].MInit = _data[index+1].MInit;
+            _data[index].LName = _data[index+1].LName;
+            _data[index].SSN = _data[index+1].SSN;
+            _data[index].BDate = _data[index+1].BDate;
+            _data[index].Address = _data[index+1].Address;
+            _data[index].Sex =_data[index+1].Sex;
+            _data[index].Salary =_data[index+1].SuperSSN;
+            _data[index].SuperSSN = _data[index+1].SuperSSN;
+            _data[index].DNO = _data[index+1].DNO;  
+             
+            // _data[index] = _data[index+1];   
+            // _data[index] = ChangeValues(_data[index]);
         }
         _data.pop_back();
         ofstream outFile("Employee.data", ios::out);
@@ -112,11 +124,6 @@ bool EmployeeData::DeleteMember(int i){
         return true;   
     }
 }
-
-// Company EmployeeData::UpdateRowTable(Company* company){
-//     company = new Employee();
-//     return *company;
-// }
 
 
 
