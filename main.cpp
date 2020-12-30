@@ -8,9 +8,9 @@
 using namespace std;
 using json = nlohmann::json;
 
-EmployeeData employeeArray;
 
 void write_employee_to_file(){
+    EmployeeData employeeArray;
 
     // Employee e(1, "Chau", "Bao", "Ngo", 111222333, "1975-04-30", "Chicago", 'M', 10000, -1, 5);
     Employee e1(1, "John", "B", "Smith", 123456789, "1965-01-09", "731 Fondren, Houston, TX", 'M', 30000, 333445555, 5);
@@ -52,41 +52,44 @@ void read_employee_from_file(){
 
 // Create a new member from keyboard
 void Create(){
-    EmployeeData employeeArray;
+    // CompanyData CompanyArr;
 
     bool isContinue = true;
     while(isContinue){
+        if(isContinue == 1){
 
-        // if(isContinue){       
-            int id; string fName; string mInit; string lName; long ssn; string bDate; string address; char sex; int salary; long superSSN; int dno;
-            cout<<"Id: "; cin>>id;
-            cout<<"First Name: "; cin>>fName; 
-            cout<<"Midle Name: "; cin>> mInit; 
-            cout<<"Last name: "; cin>>lName; 
-            cout<<"SSN: "; cin>>ssn; 
-            cout<<"Birthday: "; fflush(stdin); getline(cin, bDate); 
-            cout<<"Address: "; getline(cin, address); 
-            cout<<"Sex: "; cin>>sex; 
-            cout<<"Salary: "; cin>>salary; 
-            cout<<"super SSN "; cin>>superSSN; 
-            cout<<"DNO: "; cin>>dno;
+        int id; string fName; string mInit; string lName; long ssn; string bDate; string address; char sex; int salary; long superSSN; int dno;
+        
+        cout<<"Id: "; cin>>id;
+        cout<<"First Name: "; cin>>fName; 
+        cout<<"Midle Name: "; cin>> mInit; 
+        cout<<"Last name: "; cin>>lName; 
+        cout<<"SSN: "; cin>>ssn; 
+        cout<<"Birthday: "; fflush(stdin); getline(cin, bDate); 
+        cout<<"Address: "; getline(cin, address); 
+        cout<<"Sex: "; cin>>sex; 
+        cout<<"Salary: "; cin>>salary; 
+        cout<<"super SSN "; cin>>superSSN; 
+        cout<<"DNO: "; cin>>dno;
 
-            Employee employee(id, fName, mInit, lName, ssn, bDate, address, sex, salary, superSSN, dno);
-            employeeArray.PushBack(employee);
+        Company* pC = new Employee(id, fName, mInit, lName, ssn, bDate, address, sex, salary, superSSN, dno);
+        CompanyData* companyData = new EmployeeData("CompanyDatabase.data");
+
+        companyData->AddMember(pC);
+        
         // }
-        cout<< "0. stop"<<endl;
+        cout<< "0. stop"<<endl; 
         cin>>isContinue;
-
+        
+        companyData->ExportToFile("CompanyDatabase.data");
     }
-    employeeArray.AddMember("EmployeeDatabase.data");
 }
 
 // Delete a member
 void Delete(int id){
     EmployeeData employeeArray("EmployeeDatabase.data");
     --id;
-    employeeArray.DeleteMember(id, "EmployeeDatabase.data");
-    
+    employeeArray.DeleteMember(id);
 }
 
 int main(){

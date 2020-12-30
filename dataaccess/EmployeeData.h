@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 #include "CompanyData.h"
+#include "../businessobject/Company.h"
 #include "../businessobject/Employee.h"
 
 using namespace std;
@@ -11,6 +12,7 @@ using namespace std;
 class EmployeeData : public CompanyData{
 private:
     vector<Employee> _data;
+    
     int _maxId;
 public:
     EmployeeData();
@@ -33,8 +35,8 @@ public:
 
     int ExportToFile(string filename);
 
- 	bool AddMember(string ); // Q1
-    bool DeleteMember(int , string ); // Q2
+ 	bool AddMember(Company* ) override; // Q1
+    bool DeleteMember(int ); // Q2
 
     // Company UpdateRowTable(Company* );
 

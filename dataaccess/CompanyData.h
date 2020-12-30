@@ -6,15 +6,16 @@
 
 using namespace std;
 
-class CompanyData
-{
+class CompanyData{
 public:
-	friend class EmployeeData;
+	CompanyData();
+
+	virtual int ExportToFile(string filename) = 0;
 
 	//Create a member of the table
-	virtual bool AddMember(string ) = 0;
+	virtual bool AddMember(Company* ) = 0;
 	//D a member of the table by Id 
-	virtual bool DeleteMember(int , string) = 0;
+	virtual bool DeleteMember(int ) = 0;
 	
 	// virtual Company UpdateRowTable(Company* ) = 0;
 	// virtual vector<Company*> ReadRowTable(vector<Company*> table) = 0;

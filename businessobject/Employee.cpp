@@ -63,11 +63,6 @@ json Employee::ToJson(){
     return j;
 }
 
-Employee ChangeValues(Employee& employee){
-    employee.Id -= 1;
-    return employee;
-}
-
 // ostream& operator<<(ostream& out, Employee employee){
 //     return out;
 // }
