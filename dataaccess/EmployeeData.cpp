@@ -51,7 +51,7 @@ int EmployeeData::PushBack(Employee employee){
 
 Employee* EmployeeData::GetPointer(int i){
     Employee* e = nullptr;
-    if (i >= 0 && i<_data.size())
+    if (i >= 0 && (i < _data.size()))
         e = &_data[i];
     return e;
 }
@@ -80,21 +80,16 @@ int EmployeeData::ExportToFile(string filename){
     return 1;
 }
 
-bool EmployeeData::CreateNewMember(string fileName){
+bool EmployeeData::AddMember(string fileName){
     ofstream outFile(fileName, ios::app);
-    if(!outFile){
-        return false;
-    }else{
-        for(Employee employee : _data){
-            outFile<<employee.ToJson()<<endl;
-        }
-        outFile.close();
-
-        return true;
+    for(Employee employee : _data){
+        outFile<<employee.ToJson()<<endl;
     }
+    outFile.close();
+    return true;
 }
 
-bool EmployeeData::DeleteMember(int i){
+bool EmployeeData::DeleteMember(int i, string fileName){
     if(i < 0){
         return false;
     }else{
@@ -110,12 +105,10 @@ bool EmployeeData::DeleteMember(int i){
             _data[index].Salary =_data[index+1].SuperSSN;
             _data[index].SuperSSN = _data[index+1].SuperSSN;
             _data[index].DNO = _data[index+1].DNO;  
-             
-            // _data[index] = _data[index+1];   
-            // _data[index] = ChangeValues(_data[index]);
+
         }
         _data.pop_back();
-        ofstream outFile("Employee.data", ios::out);
+        ofstream outFile(fileName, ios::out);
         for(Employee employee : _data){
             outFile<<employee.ToJson()<<endl;
         }

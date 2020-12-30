@@ -36,13 +36,13 @@ void write_employee_to_file(){
         Employee p = employeeArray.Get(i);
         cout<<p.ToString()<<endl;
     }
-    employeeArray.ExportToFile("Employee.data");
+    employeeArray.ExportToFile("EmployeeDatabase.data");
 }
 
 // Read and show on employee information to screen
 void read_employee_from_file(){
     // EmployeeData employeeData("Employee1.data");
-    EmployeeData employeeArray("Employee.data");
+    EmployeeData employeeArray("EmployeeDatabase.data");
     cout<<"Read file function"<<"\n";
     for(int i=0; i<employeeArray.GetSize(); ++i){
         Employee p = employeeArray.Get(i);
@@ -52,19 +52,12 @@ void read_employee_from_file(){
 
 // Create a new member from keyboard
 void Create(){
-    EmployeeData employeeArray("Employee.data");
+    EmployeeData employeeArray;
 
     bool isContinue = true;
     while(isContinue){
-        int yourChoise = 0;
-        cout<< "Select your action: "<<endl;
-        cout<< "1. create "<<endl;
-        cout<< "0. stop"<<endl;
-        cin>>yourChoise;
-        if(yourChoise == 0){
-            isContinue = false;
-        }
-        else if(yourChoise == 1){       
+
+        // if(isContinue){       
             int id; string fName; string mInit; string lName; long ssn; string bDate; string address; char sex; int salary; long superSSN; int dno;
             cout<<"Id: "; cin>>id;
             cout<<"First Name: "; cin>>fName; 
@@ -80,18 +73,19 @@ void Create(){
 
             Employee employee(id, fName, mInit, lName, ssn, bDate, address, sex, salary, superSSN, dno);
             employeeArray.PushBack(employee);
-        }
+        // }
+        cout<< "0. stop"<<endl;
+        cin>>isContinue;
 
     }
-    employeeArray.CreateNewMember("EmployeeDatabase.data");
-   
+    employeeArray.AddMember("EmployeeDatabase.data");
 }
 
 // Delete a member
-void Delete(){
-    EmployeeData employeeArray("Employee.data");
-
-    employeeArray.DeleteMember(1);
+void Delete(int id){
+    EmployeeData employeeArray("EmployeeDatabase.data");
+    --id;
+    employeeArray.DeleteMember(id, "EmployeeDatabase.data");
     
 }
 
@@ -100,15 +94,14 @@ int main(){
     string supervisorName;
     do
     {
-        cout<<"Nhap vao gia tri can nhap: "; cin>>yourChoose;
+        cout<<"1. Tao co so du lieu \n 2. Tim ten nhan vien \n 3. Xoa \n 4. Them thong tin\n "<<endl;
+        cout<<"Moi ban chon: "; cin>>yourChoose;
 
         switch(yourChoose){
             case 1:
-                cout<<"Ban nhap 1"<<endl;
-                // write_employee_to_file();
-                // read_employee_from_file();
-                // Create(); 
-                Delete();
+                cout<<"Ban chon tao co so du lieu"<<endl;
+                write_employee_to_file();
+                // read_employee_from_file();                
                 break;
             case 2:
                 
@@ -117,10 +110,15 @@ int main(){
                 cout<<"Your insert: "<<supervisorName;
                 break;
             case 3:
-                cout<<"Ban nhap 3"<<endl;
+                int id;
+                cout<<"Ban chon xoa"<<endl;
+                cout<<"Nhap vao Id" <<endl;
+                cin>>id;
+                Delete(id);
                 break;
             case 4:
-                cout<<"Ban nhap 4"<<endl;
+                cout<<"Ban chon them"<<endl;
+                Create(); 
                 break;
             case 5:
                 cout<<"Ban nhap 5"<<endl;

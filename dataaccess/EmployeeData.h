@@ -33,8 +33,8 @@ public:
 
     int ExportToFile(string filename);
 
- 	bool CreateNewMember(string ); // Q1
-    bool DeleteMember(int i); // Q2
+ 	bool AddMember(string ); // Q1
+    bool DeleteMember(int , string ); // Q2
 
     // Company UpdateRowTable(Company* );
 
