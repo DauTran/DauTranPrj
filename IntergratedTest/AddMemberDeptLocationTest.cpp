@@ -1,6 +1,8 @@
 #include <iostream>
 
 #include "../dataaccess/DeptLocationsData.h"
+#include "../dataaccess/CompanyData.h"
+
 #include "../businessobject/DeptLocations.h"
 #include "../businessobject/Company.h"
 
@@ -25,7 +27,6 @@ int main(){
 
             companyData->AddMember(pC);
 
-            companyData->ExportToFile("DeptLocationsDatabase.data");
         }else if(isContinue == 0){
             isContinue = false;
         }
@@ -33,6 +34,7 @@ int main(){
         cout<<"0. To stop"; cin >> isContinue;
 
     } while (isContinue);
+    companyData->ExportToFile("DeptLocationsDatabase.data");
 
     return 0;
 }

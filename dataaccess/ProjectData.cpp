@@ -19,8 +19,8 @@ ProjectData::ProjectData(string fileName){
         Project p(
             j["Id"],
             j["PName"],
-            j["PNumber"],
             j["PLocation"],
+            j["PNumber"],
             j["DNum"]
         );
         _data.push_back(p);

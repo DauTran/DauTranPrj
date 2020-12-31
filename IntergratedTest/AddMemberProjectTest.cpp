@@ -10,11 +10,12 @@ using namespace std;
 
 int main(){
     bool isContinue = true;
-
     CompanyData* companyData = new ProjectData("ProjectDatabase.data");
+
     do
     {
         if(isContinue == 1){
+            // int id, string pName,string pLocation,int pNumber,int dNum
         string pName; string pLocation; int pNumber; int dNum;
         cout<<"pName: "; fflush(stdin); getline(cin, pName); 
         cout<<"pLocation: "; fflush(stdin); getline(cin, pLocation); 
@@ -34,8 +35,8 @@ int main(){
     cout<<"0. To stop"; cin >> isContinue;
 
 } while (isContinue);
-
     companyData->ExportToFile("ProjectDatabase.data");
+
 
     return 0;
 }

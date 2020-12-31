@@ -19,8 +19,9 @@ public:
     // Default Contructor
     Project();
     // Contructor with paramaters
-    Project(int , string ,string ,int ,int );
+    Project(int id, string pName,string pLocation,int pNumber,int dNum);
     string ToString();
     json ToJson();
 };
+
 #endif
