@@ -3,11 +3,36 @@
 using namespace std;
 
 // Default Contructor
-Departerment::Departerment(){}
+Department::Department(){}
 // Contructor with paramaters
-Departerment::Departerment(std::string dName, long mgrSSN, std::string mgrStartDate,int dNumber){
+Department::Department(int id, string dName, long mgrSSN, string mgrStartDate,int dNumber){
+    Id = id;
     DName = dName;
     MgrSSN = mgrSSN;
     MgrStartDate = mgrStartDate;
-    Dnumber=dNumber;
+    Dnumber = dNumber;
+}
+
+string Department::ToString(){
+    string s;
+    s += "{";
+    s += to_string(Id) + " ";
+    s += DName + " ";
+    s += to_string(MgrSSN) + " ";
+    s += MgrStartDate + " ";
+    s += to_string(Dnumber) + " ";
+    s += "}";
+
+    return s;
+}
+
+json Department::ToJson(){
+    json j;
+    j["Id"] = Id;
+    j["DName"] = DName;
+    j["MgrSSN"] = MgrSSN;
+    j["MgrStartDate"] = MgrStartDate;
+    j["Dnumber"] = Dnumber;
+    return j;
+    
 }

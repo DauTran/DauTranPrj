@@ -38,6 +38,8 @@ public:
  	bool AddMember(Company* ) override; // Q1
     bool DeleteMember(int ); // Q2
 
+    // bool UpdateMember();
+
     // Company UpdateRowTable(Company* );
 
     

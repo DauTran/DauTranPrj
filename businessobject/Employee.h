@@ -4,7 +4,6 @@
 #include "../libs/json.hpp"
 #include "Company.h"
 
-
 using json = nlohmann::json;
 using namespace std;
 
@@ -22,7 +21,7 @@ public:
     friend class EmployeeData;
     
     Employee();
-    Employee(int id, string fName, string mInit, string lName, long ssn, string bDate, string address, char sex, int salary, long superSSN, int dno);
+    Employee(int id,string fName, string mInit, string lName, long ssn, string bDate, string address, char sex, int salary, long superSSN, int dno);
     int GetId();
     int SetId(int);
     string ToString();
@@ -30,7 +29,6 @@ public:
     
     // Using to change Id of a employee
     // friend Employee ChangeValues(Employee& employee);
-
 };
 
 #endif  

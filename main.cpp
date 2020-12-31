@@ -1,7 +1,16 @@
 #include <iostream>
 #include "dataaccess/CompanyData.h"
-#include "businessobject/Employee.h"
 #include "dataaccess/EmployeeData.h"
+#include "dataaccess/DepartmentData.h"
+#include "dataaccess/DeptLocationsData.h"
+#include "dataaccess/ProjectData.h"
+
+#include "businessobject/Company.h"
+#include "businessobject/Employee.h"
+#include "businessobject/Department.h"
+#include "businessobject/DeptLocations.h"
+#include "businessobject/Project.h"
+
 #include "libs/json.hpp"
 #include <vector>
 #include <string>
@@ -10,8 +19,8 @@ using json = nlohmann::json;
 
 
 void write_employee_to_file(){
-    EmployeeData employeeArray;
 
+    EmployeeData employeeArray("EmployeeDatabase.data");
     // Employee e(1, "Chau", "Bao", "Ngo", 111222333, "1975-04-30", "Chicago", 'M', 10000, -1, 5);
     Employee e1(1, "John", "B", "Smith", 123456789, "1965-01-09", "731 Fondren, Houston, TX", 'M', 30000, 333445555, 5);
     employeeArray.PushBack(e1);
@@ -32,6 +41,7 @@ void write_employee_to_file(){
     
 
 // Save an employee to a string
+
     for(int i=0; i < employeeArray.GetSize(); ++i){
         Employee p = employeeArray.Get(i);
         cout<<p.ToString()<<endl;
@@ -41,7 +51,7 @@ void write_employee_to_file(){
 
 // Read and show on employee information to screen
 void read_employee_from_file(){
-    // EmployeeData employeeData("Employee1.data");
+    EmployeeData employeeData("Employee1.data");
     EmployeeData employeeArray("EmployeeDatabase.data");
     cout<<"Read file function"<<"\n";
     for(int i=0; i<employeeArray.GetSize(); ++i){
@@ -52,15 +62,13 @@ void read_employee_from_file(){
 
 // Create a new member from keyboard
 void Create(){
-    // CompanyData CompanyArr;
-
     bool isContinue = true;
     while(isContinue){
-        if(isContinue == 1){
-
+        // if(isContinue == 1){
+        // int id; 
         int id; string fName; string mInit; string lName; long ssn; string bDate; string address; char sex; int salary; long superSSN; int dno;
         
-        cout<<"Id: "; cin>>id;
+        // cout<<"Id: "; cin>>id;
         cout<<"First Name: "; cin>>fName; 
         cout<<"Midle Name: "; cin>> mInit; 
         cout<<"Last name: "; cin>>lName; 
@@ -72,7 +80,7 @@ void Create(){
         cout<<"super SSN "; cin>>superSSN; 
         cout<<"DNO: "; cin>>dno;
 
-        Company* pC = new Employee(id, fName, mInit, lName, ssn, bDate, address, sex, salary, superSSN, dno);
+        Company* pC = new Employee(0, fName, mInit, lName, ssn, bDate, address, sex, salary, superSSN, dno);
         CompanyData* companyData = new EmployeeData("CompanyDatabase.data");
 
         companyData->AddMember(pC);
@@ -84,6 +92,39 @@ void Create(){
         companyData->ExportToFile("CompanyDatabase.data");
     }
 }
+
+void Update(){
+    bool isContinue = true;
+    while(isContinue){
+        // if(isContinue == 1){
+        // int id; 
+        int id; string fName; string mInit; string lName; long ssn; string bDate; string address; char sex; int salary; long superSSN; int dno;
+        
+        // cout<<"Id: "; cin>>id;
+        cout<<"First Name: "; cin>>fName; 
+        cout<<"Midle Name: "; cin>> mInit; 
+        cout<<"Last name: "; cin>>lName; 
+        cout<<"SSN: "; cin>>ssn; 
+        cout<<"Birthday: "; fflush(stdin); getline(cin, bDate); 
+        cout<<"Address: "; getline(cin, address); 
+        cout<<"Sex: "; cin>>sex; 
+        cout<<"Salary: "; cin>>salary; 
+        cout<<"super SSN "; cin>>superSSN; 
+        cout<<"DNO: "; cin>>dno;
+
+        Company* pC = new Employee(0, fName, mInit, lName, ssn, bDate, address, sex, salary, superSSN, dno);
+        CompanyData* companyData = new EmployeeData("CompanyDatabase.data");
+
+        companyData->AddMember(pC);
+        
+        // }
+        cout<< "0. stop"<<endl; 
+        cin>>isContinue;
+        
+        companyData->ExportToFile("CompanyDatabase.data");
+    }
+}
+
 
 // Delete a member
 void Delete(int id){

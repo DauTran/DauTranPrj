@@ -30,16 +30,15 @@ EmployeeData::EmployeeData(string fileName){
             j["SuperSSN"],
             j["DNO"]
         );
-
         _data.push_back(p);
     }
     inFile.close(); 
-    
 }   
 
 int EmployeeData::GetMaxId(){
     return _maxId;
 }
+
 //Id auto insert by this function PushBack()
 int EmployeeData::PushBack(Employee employee){
     // assume: there is 6 employees than _maxId=6
@@ -51,8 +50,7 @@ int EmployeeData::PushBack(Employee employee){
 
 Employee* EmployeeData::GetPointer(int i){
     Employee* e = nullptr;
-    if (i >= 0 && (i < _data.size()))
-        e = &_data[i];
+    if (i >= 0 && (i < _data.size())) e = &_data[i];
     return e;
 }
 
@@ -79,8 +77,11 @@ int EmployeeData::ExportToFile(string filename){
     return 1;
 }
 
+//add am em with 
 bool EmployeeData::AddMember(Company* company){
+    _maxId++; // _maxId = 7 
     Employee* employee =(Employee*) company;
+    employee->Id = _maxId;
     _data.push_back(*employee);
     return true;
 }
@@ -107,5 +108,8 @@ bool EmployeeData::DeleteMember(int i){
     }
 }
 
+// bool EmployeeData::UpdateMember(){
+//     return true;
+// }
 
 

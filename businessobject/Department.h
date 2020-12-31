@@ -1,16 +1,28 @@
-#ifndef _DEPARTERMENT_H_
-#define _DEPARTERMENT_H_
-#include string
-class Departerment{
-    stdstring DName;
+#ifndef _DEPARTRMENT_H_
+#define _DEPARTRMENT_H_
+#include <string>
+#include "../libs/json.hpp"
+#include "Company.h"
+
+using json = nlohmann::json;
+using namespace std;
+
+class Department : public Company{
+    int Id;
+    string DName;
     long MgrSSN;
-    stdstring MgrStartDate;
+    string MgrStartDate;
     int Dnumber;
 
-public
-     Default Contructor
-    Departerment();
-     Contructor with paramaters
-    Departerment(stdstring dName, long mgrSSN, stdstring mgrStartDate,int dNumber);
+public:
+    friend class DepartmentData;
+
+    //Default Contructor
+    Department();
+    // Contructor with paramaters
+    Department(int id, string dName, long mgrSSN, string mgrStartDate,int dNumber);
+    string ToString();
+    json ToJson();
 };
+
 #endif 
