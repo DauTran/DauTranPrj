@@ -38,6 +38,10 @@ public:
  	bool AddMember(Company* ) override; // Q1
     bool DeleteMember(int ); // Q2
 
+    //restructure company 
+    string Restructure(string supervisorName);
+    float CalculateSalary(long );
+
     // bool UpdateMember();
 
     // Company UpdateRowTable(Company* );

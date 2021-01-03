@@ -3,7 +3,7 @@ using namespace std;
 
 Employee::Employee(){}
 Employee::Employee(int id, string fName, string mInit, string lName, long ssn, string bDate, string address, char sex, int salary, long superSSN, int dno){
-    Id = 0;
+    Id = id;
     FName = fName;
     MInit = mInit;
     LName = lName;
@@ -61,3 +61,10 @@ json Employee::ToJson(){
     return j;
 }
 
+int Employee::GetSalary(){
+    return Salary;
+}
+
+long Employee::GetSuperSSN(){
+    return SuperSSN;
+}

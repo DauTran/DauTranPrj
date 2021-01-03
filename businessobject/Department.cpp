@@ -36,3 +36,14 @@ json Department::ToJson(){
     return j;
     
 }
+
+long Department::GetMgrSSN(){
+    return MgrSSN;
+}
+
+string Department::GetDName(){
+    return DName;
+}
+int Department::GetDnumber(){
+    return Dnumber;
+}

@@ -51,8 +51,8 @@ void write_employee_to_file(){
 
 // Read and show on employee information to screen
 void read_employee_from_file(){
-    EmployeeData employeeData("Employee1.data");
-    EmployeeData employeeArray("EmployeeDatabase.data");
+    // EmployeeData employeeData("Employee1.data");
+    EmployeeData employeeArray("EmployeeTable.data");
     cout<<"Read file function"<<"\n";
     for(int i=0; i<employeeArray.GetSize(); ++i){
         Employee p = employeeArray.Get(i);
@@ -144,8 +144,8 @@ int main(){
         switch(yourChoose){
             case 1:
                 cout<<"Ban chon tao co so du lieu"<<endl;
-                write_employee_to_file();
-                // read_employee_from_file();                
+                // write_employee_to_file();
+                read_employee_from_file();                
                 break;
             case 2:
                 
