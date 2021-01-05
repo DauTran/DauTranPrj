@@ -4,27 +4,34 @@
     #include <ctime>
 
 using namespace std;
-    int main()
-    {
-        string myDir = "D:/Fresh/DauTranPrj/MyData/employee/";
+void CreateDataBase()
+{
+        string myDir = "DataBase";
         string strLocalDay;
         string strTime;
+        const char* dataFolder = myDir.c_str();
+        mkdir(dataFolder);
 
-        //Create a days
+        //Create a day folder
         time_t now =time(0);
         tm *pTime = localtime(&now);
-        strLocalDay = to_string(1900 + pTime->tm_year)+ "_" + to_string(1 + pTime->tm_mon) + "_" + to_string(pTime->tm_mday);
-
+        strLocalDay = "/" + to_string(1900 + pTime->tm_year) + "_" + to_string(1 + pTime->tm_mon) + "_" + to_string(pTime->tm_mday) + "/";
         myDir += strLocalDay;
+        const char* daysFolder = myDir.c_str();
+        mkdir(daysFolder);
 
+        //Create a time folder
         strTime = to_string(5+pTime->tm_hour) + "_" + to_string(30+pTime->tm_min) + "_" + to_string(pTime->tm_sec);
+        myDir += strTime;
+        const char* timeFolder = myDir.c_str();
+        mkdir(timeFolder);
 
-        myDir += "/" + strTime;
+        cout<< "Successfully! Here's your link: " <<myDir;
+    }
+    int main()
+    {
+        CreateDataBase();
 
-
-
-        const char* s = myDir.c_str();
-        mkdir(s);
         return 0;
     }
 
