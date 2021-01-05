@@ -81,7 +81,7 @@ bool DepartmentData::DeleteMember(int i){
     if(i < 0){
         return false;
     }else{
-        for(int index=i; index<_data.size()-1; ++index){
+        for(int index=i; index < _data.size()-1; ++index){
             _data[index].Id = _data[index+1].Id - 1;
             _data[index].DName = _data[index+1].DName;
             _data[index].MgrSSN = _data[index+1].MgrSSN;

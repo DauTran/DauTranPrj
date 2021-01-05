@@ -31,6 +31,7 @@ EmployeeData::EmployeeData(string fileName){
             j["DNO"]
         );
         _data.push_back(p);
+        ++_maxId;
     }
     inFile.close(); 
 }   
@@ -108,8 +109,40 @@ bool EmployeeData::DeleteMember(int i){
     }
 }
 
-// bool EmployeeData::UpdateMember(){
-//     return true;
-// }
+//restructure company 
+string EmployeeData::Restructure(string supervisorName){
+    long ssn = -1;
+    string employeeList = " "; 
+    for(int i = 0; i < _data.size(); ++i){
+        string s = ( (_data[i].FName) + (_data[i].LName) ); 
+        if( s == supervisorName ){
+            ssn = _data[i].SSN;
+            break;
+        }
+    }
+    // if(ssn == -1) return " ";
+    for(int i = 0; i < _data.size(); ++i){
+        if((_data[i].SuperSSN - ssn) == 0){
+            employeeList = employeeList + " ";
+            employeeList = employeeList + _data[i].FName;
+        }
+    }
+    return employeeList;
+}
+
+float EmployeeData::CalculateSalary(long mgrSSN){
+    float averageSalary = 0;
+    float countEmployee = 0;
+    for(int i = 0; i < _data.size(); ++i){
+        if(_data[i].SuperSSN == mgrSSN){
+            averageSalary += _data[i].Salary;
+            ++countEmployee;
+        }
+    }
+    averageSalary /= float(countEmployee);
+
+    return averageSalary;
+}
+
 
 

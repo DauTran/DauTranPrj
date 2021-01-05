@@ -26,6 +26,9 @@ public:
     int SetId(int);
     string ToString();
     json ToJson(); 
+
+    int GetSalary();
+    long GetSuperSSN();
     
     // Using to change Id of a employee
     // friend Employee ChangeValues(Employee& employee);
