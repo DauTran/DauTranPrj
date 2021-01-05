@@ -10,9 +10,9 @@ DeptLocationsData::DeptLocationsData(){
 }
 
 DeptLocationsData::DeptLocationsData(string fileName){
-    _maxId = 0;
+    ifstream inFile(fileName);  
+    _maxId = 0;  
     _data.resize(0);
-    ifstream inFile(fileName);
     const int maxSize = 255;
     char buff[maxSize];
     while(inFile.getline(buff, maxSize)){
@@ -23,7 +23,10 @@ DeptLocationsData::DeptLocationsData(string fileName){
             j["DLocation"]
             );
         _data.push_back(p);
+        ++_maxId;
     }
+    // _maxId = _data.back().Id;
+
     inFile.close();
 }
 
