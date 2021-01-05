@@ -49,8 +49,8 @@ void CalculateAverageSalary(){
 }
 
 int main(){
-    // Write_Department_to_file();
-    CalculateAverageSalary();
+    Write_Department_to_file();
+    // CalculateAverageSalary();
     return 0;
 }
 

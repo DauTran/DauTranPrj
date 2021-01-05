@@ -17,4 +17,4 @@ g++ IntergratedTest/C4.cpp dataaccess/CompanyData.cpp dataaccess/ProjectData.cpp
 g++ IntergratedTest/C9.cpp dataaccess/Work_onData.cpp dataaccess/ProjectData.cpp dataaccess/EmployeeData.cpp businessobject/Employee.cpp businessobject/Project.cpp businessobject/Work_on.cpp -o main.cpp
 
 10. C10
-g++ IntergratedTest/CreateFolder.cpp -o main.exe
+g++ IntergratedTest/C10.cpp dataaccess/DepartmentData.cpp businessobject/Department.cpp -o main.exe
