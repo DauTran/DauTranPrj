@@ -118,7 +118,6 @@ void UI::ShowMain()
                 cout<<"2. Update \n";
                 cout<<"3. Delete \n";
                 cout<<"4. Display \n";
-                // cout<<"5. Backup \n";
                 cout<<"0. Return \n";
 
                 cout<<"Chose one: "<<endl;
@@ -155,6 +154,9 @@ void UI::ShowMain()
                         cout << companyData->ShowOnFile();
                         cout << "\n Press number 1 to return: "<<endl;
                         cin >> chooseFunction;
+                        break;
+                    
+                    case 0:
                         break;
 
                     default:
