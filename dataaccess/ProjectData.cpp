@@ -57,6 +57,7 @@ Project ProjectData::Get(int i){
 }
 
 int ProjectData::ExportToFile(string fileName){
+    fileName += "Project.data";
     ofstream outFile(fileName, ios::out);
     if(!outFile){
         return 0;
@@ -68,14 +69,44 @@ int ProjectData::ExportToFile(string fileName){
     return 1;
 }
 
-bool ProjectData::AddMember(Company* company){
+string ProjectData::ShowOnFile()
+{
+    string str;
+    for(int i=0; i< _data.size(); ++i)
+    {
+        str += _data[i].ToString() + "\n";
+    }
+    return str;
+
+}
+
+bool ProjectData::AddMember()
+{
+    ProjectUI projectUI;
     _maxId++;
-    Project* project = (Project*)company;
+    Project* project = projectUI.AddMemberUI();
     project->Id = _maxId;
     _data.push_back(*project);
     return true;
 }
-bool ProjectData::DeleteMember(int i){
+
+bool ProjectData::UpdateMember()
+{
+    ProjectUI projectUI;
+    Project* project = projectUI.UpdateMemberUI();
+
+    int id = project->GetId();
+    if(project->GetPName() != "0") _data[id].PName = project->GetPName();
+    if(project->GetPNumber() != 0) _data[id].PNumber = project->GetPNumber();
+    if(project->GetPLocation() != "0")   _data[id].PLocation = project->GetPLocation();
+    if(project->GetDNum() != 0)  _data[id].DNum = project->GetDNum();
+    return true;
+}
+
+bool ProjectData::DeleteMember()
+{
+    ProjectUI projectUI;
+    int i = projectUI.DeleteMemberUI();
     if(i < 0){
         return false;
     }else{
@@ -90,9 +121,19 @@ bool ProjectData::DeleteMember(int i){
     return true;   
     }
 }
+
 string ProjectData::GetProjectName(int projectNumber){
     for(int i = 0; i < _data.size(); ++i){
         if(_data[i].PNumber == projectNumber){
+            return _data[i].PName;
+        }
+    }
+    return " ";
+}
+
+string ProjectData::GetProjectName(int pNumber, int dNum){
+    for(int i = 0; i < _data.size(); ++i){
+        if(_data[i].PNumber == pNumber && _data[i].DNum == dNum){
             return _data[i].PName;
         }
     }

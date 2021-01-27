@@ -20,6 +20,10 @@ public:
     DeptLocations(int id, int dNumber, string dLocation);
     string ToString();
     json ToJson();
+
+    int GetId();
+    int GetDNumber();
+    string GetDLocation();
 };
 
 #endif

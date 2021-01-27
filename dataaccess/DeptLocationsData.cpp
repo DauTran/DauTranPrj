@@ -59,6 +59,7 @@ DeptLocations DeptLocationsData::Get(int i){
 }
 
 int DeptLocationsData::ExportToFile(string fileName ){
+    fileName += "DeptLocations.data";
     ofstream outFile(fileName, ios::out);
     if(!outFile){
         return 0;
@@ -70,15 +71,44 @@ int DeptLocationsData::ExportToFile(string fileName ){
     return 1;
 }
 
-bool DeptLocationsData::AddMember(Company* company){
+
+string DeptLocationsData::ShowOnFile()
+{
+    string str;
+    for(int i=0; i< _data.size(); ++i)
+    {
+        str += _data[i].ToString() + "\n";
+    }
+    return str;
+
+}
+
+bool DeptLocationsData::AddMember(){
+    DeptLocationsUI deptLocationsUI;
     _maxId++;
-    DeptLocations* deptLocations = (DeptLocations*)company;
+    DeptLocations* deptLocations = deptLocationsUI.AddMemberUI();
     deptLocations->Id = _maxId;
     _data.push_back(*deptLocations);
     return true;
 }
 
-bool DeptLocationsData::DeleteMember(int i){
+bool DeptLocationsData::UpdateMember()
+{
+    DeptLocationsUI deptLocationsUI;
+    DeptLocations* deptLocations = deptLocationsUI.UpdateMemberUI();
+
+    int id = deptLocations->GetId();
+    
+    if(deptLocations->GetDNumber() != 0) _data[id].DNumber = deptLocations->GetDNumber();
+    if(deptLocations->GetDLocation() != "0") _data[id].DLocation = deptLocations->GetDLocation();
+    return true;
+}
+
+bool DeptLocationsData::DeleteMember()
+{ 
+    DeptLocationsUI deptLocationsUI;
+    int i = deptLocationsUI.DeleteMemberUI();
+    
     if(i < 0){
         return false;
     }else{

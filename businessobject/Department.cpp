@@ -47,3 +47,13 @@ string Department::GetDName(){
 int Department::GetDnumber(){
     return Dnumber;
 }
+
+int Department::GetId()
+{
+    return Id;
+}
+string Department::GetMgrStartDate()
+{
+    return MgrStartDate;
+}
+

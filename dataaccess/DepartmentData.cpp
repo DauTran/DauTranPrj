@@ -58,6 +58,7 @@ Department DepartmentData::Get(int i){
 }
 
 int DepartmentData::ExportToFile(string fileName ){
+    fileName += "Department.data";
     ofstream outFile(fileName, ios::out);
     if(!outFile){
         return 0;
@@ -69,15 +70,43 @@ int DepartmentData::ExportToFile(string fileName ){
     return 1;
 }
 
-bool DepartmentData::AddMember(Company* company){
+string DepartmentData::ShowOnFile()
+{
+    string str;
+    for(int i=0; i< _data.size(); ++i)
+    {
+        str += _data[i].ToString() + "\n";
+    }
+    return str;
+
+}
+
+bool DepartmentData::AddMember(){
+    DepartmentUI departmentUI;
     _maxId++;
-    Department* department = (Department*)company;
+    Department* department = departmentUI.AddMemberUI();
     department->Id = _maxId;
     _data.push_back(*department);
     return true;
 }
 
-bool DepartmentData::DeleteMember(int i){
+bool DepartmentData::UpdateMember()
+{
+    DepartmentUI departmentUI;
+    Department* department = departmentUI.UpdateMemberUI();
+    int id = department->GetId();
+
+    if(department->GetDName() != "0") _data[id].DName = department->GetDName();
+    if(department->GetMgrSSN() != 0) _data[id].MgrSSN = department->GetMgrSSN();
+    if(department->GetMgrStartDate() != "0") _data[id].MgrStartDate = department->GetMgrStartDate();
+    if(department->GetDnumber() != 0) _data[id].Dnumber = department->GetDnumber();
+
+    return true;
+}
+
+bool DepartmentData::DeleteMember(){
+    DepartmentUI departmentUI;
+    int i = departmentUI.DeleteMemberUI();
     if(i < 0){
         return false;
     }else{

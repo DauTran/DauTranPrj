@@ -41,3 +41,16 @@ json Work_on :: ToJson()
 
     return j;
 }
+
+long Work_on ::GetESSN()
+{
+    return ESSN;
+}
+int Work_on ::GetPNO()
+{
+    return PNO;
+}
+float Work_on ::GetHours()
+{
+    return Hours;
+}

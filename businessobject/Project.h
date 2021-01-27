@@ -22,6 +22,12 @@ public:
     Project(int id, string pName, string pLocation,int pNumber,int dNum);
     string ToString();
     json ToJson();
+
+    int GetId();
+    string GetPName();
+    int GetPNumber();
+    string GetPLocation();
+    int GetDNum();
 };
 
 #endif

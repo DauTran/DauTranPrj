@@ -33,3 +33,28 @@ json Project::ToJson(){
     j["DNum"] = DNum;
     return j;
 }
+
+int Project::GetId()
+{
+    return Id;
+}
+
+string Project::GetPName()
+{
+    return PName;
+}
+
+int Project::GetPNumber()
+{
+    return PNumber;
+}
+
+string Project::GetPLocation()
+{
+    return PLocation;
+}
+
+int Project::GetDNum()
+{
+    return DNum;
+}

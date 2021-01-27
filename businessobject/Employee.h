@@ -27,8 +27,20 @@ public:
     string ToString();
     json ToJson(); 
 
+    /**
+    *  @return return a string of first name and last name 
+     */
+    string GetName();
+    string GetFName();
+    string GetMInit();
+    string GetLName();
+    long GetSSN();
+    string GetBDate();
+    string GetAddress();
+    char GetSex();
     int GetSalary();
     long GetSuperSSN();
+    int GetDNO();
     
     // Using to change Id of a employee
     // friend Employee ChangeValues(Employee& employee);

@@ -1,486 +1,274 @@
-#include"ui.h"
+#include "UI.h"
 
-void Ui::DisplayEmployee()
+UI::UI()
 {
-    EmployeeData employeeData("Employee.data");
-    for(int i =0;i<employeeData.GetSize();i++)
-    {
-        Employee employee = employeeData.Get(i);
-        cout<< employee.ToString()<<endl;
-    }
+    chooseFunction = 1;
+    chooseTable = 1;
+    CompanyData* companyData;
 }
 
-void Ui::DisplayDependent()
+void UI::ShowMain()
 {
-    DependentData dependentData("Dependent.data");
-    for(int i = 0; i<dependentData.GetSize() ; i++)
-    {
-        Dependent dependent = dependentData.Get(i);
-        cout<< dependent.ToString()<<endl;
-    }
-}
-
-void Ui::DisplayProject()
-{
-    ProjectData projectData("Project.data");
-    for(int i = 0; i<projectData.GetSize() ; i++)
-    {
-        Project project = projectData.Get(i);
-        cout<< project.ToString()<<endl;
-    }
-}
-void Ui::DisplayWork_on()
-{
-    Work_onData work_onData("Work_on.data");
-    for(int i =0;i<work_onData.GetSize();i++)
-    {
-        Work_on work_on = work_onData.Get(i);
-        cout<< work_on.ToString()<<endl;
-    }
-}
-
-void Ui::DisplayDepartment()
-{
-    DepartmentData departmentData("Department.data");
-    for(int i =0;i<departmentData.GetSize();i++)
-    {
-        Department department = departmentData.Get(i);
-        cout<< department.ToString()<<endl;
-    }
-}
-
-
-
-void Ui::MainInterface()
-{
-    bool Iscontinue = true;
-    do{ 
-        int Choice;
-        cout<<"========================================"<<endl;
-        cout<<"**Choose funtion that you want to use **"<<endl;
-        cout<<"1. Display/..................."<<endl;
-        cout<<"========================================"<<endl;
-        cout<<"your Choice_"; cin >> Choice;
-       
-        switch (Choice) // choose sentence
+        do
         {
-        case 1:
-            ChooseTable();
-            break;
-        default:
             system("cls");
-            cout<<"please Enter Again"<<endl;
-            break;
-        }
-    }while (Iscontinue ==true); 
+            cout<<"The list of table: \n";
+            cout<<"1. Employee table \n";
+            cout<<"2. Department table \n";
+            cout<<"3. Department location table \n";
+            cout<<"4. Project table \n";
+            cout<<"5. Work on table \n";
+            cout<<endl;
+
+            cout<<"The list of functional: \n";
+            cout<<"6. List the employees of a manager. \n";
+            cout<<"7. The total number of hours that all employees have to work for the project. \n";
+            cout<<"8. Display the department name and the average salary of the employees working for the department.\n";
+            cout<<"9. Displays the names of all employees in a department and work for a particular project with the minimum number of hours.\n";
+
+
+            cout<<"0. Stop \n";
+
+            cout<<"Chose the table you want: "<<endl;
+            cin>>chooseTable;
+
+            switch(chooseTable)
+            {
+                case 1:
+                {
+                    companyData = new EmployeeData("DataBase/Employee.data");
+                }
+                break;
+
+                case 2:
+                {
+                    companyData = new DepartmentData("DataBase/Department.data");
+                }
+                break;
+
+                case 3:
+                {
+                    companyData = new DeptLocationsData("DataBase/DeptLocations.data");
+                }
+                break;
+
+                case 4:
+                {
+                    companyData = new ProjectData("DataBase/Project.data");
+                }
+                break;
+
+                case 5:
+                {
+                    companyData = new Work_onData("DataBase/Work_on.data");
+                }
+                break;
+
+                case 6:
+                {
+                    RestructureCompany();
+                    cout << "\n Press number 1 to return: "<<endl;
+                    cin >> chooseTable;
+                    continue;
+                }
+                break;
+
+                case 7:
+                {
+                    GetNameProjectHours();
+                    cout << "\n Press number 1 to return: "<<endl;
+                    cin >> chooseTable;
+                    continue;
+
+                }
+                break;
+
+                case 8:
+                {
+                    CalculateAverageSalary();
+                    cout << "\n Press number 1 to return: "<<endl;
+                    cin >> chooseTable;
+                    continue;
+
+                }
+                break;
+
+                case 9:
+                {
+                    GetHoursProjectEmployeeName();
+                    cout << "\n Press number 1 to return: "<<endl;
+                    cin >> chooseTable;
+                    continue;
+                }
+                break;
+
+                case 0:
+                return;
+
+                default:
+                {
+                    cout<<"Your choosen wrong, please try again! \n";
+                    cout<<"Chose the table you want: "<<endl;
+                    cin>>chooseTable;
+                }
+            }
+            do{
+                system("cls");
+                cout<<"1. Add \n";
+                cout<<"2. Update \n";
+                cout<<"3. Delete \n";
+                cout<<"4. Display \n";
+                // cout<<"5. Backup \n";
+                cout<<"0. Return \n";
+
+                cout<<"Chose one: "<<endl;
+                cin>>chooseFunction;
+
+                if(chooseFunction > 5)
+                {
+                    cout<<"Your choosen wrong, please try again! \n";
+                    cout<<"Chose one: "<<endl;
+                    cin>>chooseFunction;
+                    
+                }
+                switch(chooseFunction)
+                {
+                    case 1:
+                        system("cls");
+                        companyData->AddMember();
+                        companyData->ExportToFile(companyData->GetLink());
+                        break;
+
+                    case 2:
+                        system("cls");
+                        companyData->UpdateMember();
+                        companyData->ExportToFile(companyData->GetLink());
+                        break;
+
+                    case 3:
+                        system("cls");
+                        companyData->DeleteMember();
+                        companyData->ExportToFile(companyData->GetLink());
+
+                    case 4:
+                        system("cls");
+                        cout << companyData->ShowOnFile();
+                        cout << "\n Press number 1 to return: "<<endl;
+                        cin >> chooseFunction;
+                        break;
+
+                    default:
+                        {
+                            cout<<"Your choosen wrong, please try again! \n";
+                            cout<<"Chose the function you want: "<<endl;
+                            cin>>chooseFunction;
+                        }
+                }
+            }while(chooseFunction);
+        }while(chooseTable);
 }
 
 
-void Ui::ChooseTable()
-{   bool Iscontinue = true;
-    do 
-    {
-        int SubChoice;
-        cout<<"**************************************************************"<<endl;
-        cout<<"#####         select the Table you want to use          ######"<<endl;
-        cout<<"                     ******************                       "<<endl;
-        cout<<"1. Employee table"<<endl;
-        cout<<"2. Department table"<<endl;
-        cout<<"3. Dept_Location table"<<endl;
-        cout<<"4. Project table"<<endl;
-        cout<<"5. Work_on table"<<endl;
-        cout<<"6. Dependent table"<<endl;
-        cout<<"0. Stop"<<endl;
-        cout<<"***************************************************************"<<endl;
-        cout<<"Your choice_"; cin >> SubChoice;
-        switch (SubChoice)
-        {
-        case 1:
-            ChooseFuntion(SubChoice);
-            break;
-        case 2:
-            ChooseFuntion(SubChoice);
-            break;
-        case 3:
-            ChooseFuntion(SubChoice);
-            break;
-        case 4:
-            ChooseFuntion(SubChoice);
-            break;
-        case 5:
-            ChooseFuntion(SubChoice);
-            break;
-        case 6:
-            ChooseFuntion(SubChoice);
-            break;
-        default:
-            cout<<" Please Enter again";
-            break;
-        }
-    }
-    while(Iscontinue==true);
-}
-
-void Ui:: ChooseFuntion(int &Subchoice)
-{   bool Iscontinue = true;
-    do
-    {
-
-        int Subchoice2;
-        cout<<"**************************************************************"<<endl;
-        cout<<"#####          select the function you want to use      ######"<<endl;
-        cout<<"                       ******************                     "<<endl;
-        cout<<" 1. Display the Table"<<endl;
-        cout<<" 2. Edit the content of the table"<<endl;
-        cout<<" 3. Add elements to the table"<<endl;
-        cout<<" 4. Delete elements from the table"<<endl;
-        cout<<" 0. Stop"<<endl;
-        cout<<"**************************************************************"<<endl;
-        cout<<"Your choice__"; cin>> Subchoice2;
-        switch (Subchoice2)
-        {
-        case 1:
-            if(Subchoice == 1)
-            {
-                DisplayEmployee();
-            }
-            if(Subchoice == 2)
-            {
-                DisplayDepartment();
-            }
-            if(Subchoice ==3)
-            {
-                //DisplayProject();
-                DisplayEmployee();
-            }
-            if(Subchoice == 4)
-            {
-                DisplayProject();
-            }
-            if(Subchoice == 5)
-            {
-                DisplayWork_on();
-            }
-            if(Subchoice == 6)
-            {
-                DisplayProject();
-            }
-            break;
-        case 2:
-            if(Subchoice == 1)
-            {   
-                EmployeeData employeeData;
-                employeeData.Edit_Table();
-            }
-            if(Subchoice == 2)
-            {
-                DepartmentData departmentData;
-                departmentData.Edit_Table();
-            }
-            if(Subchoice == 4)
-            {
-                ProjectData projectData;
-                projectData.Edit_Table();
-            }
-            if(Subchoice == 5)
-            {
-                Work_onData work_onData;
-                work_onData.Edit_Table();
-            }
-            if(Subchoice == 6)
-            {
-                DependentData dependentData;
-                dependentData.Edit_Table();
-            }
-            break;
-        case 3:
-            if(Subchoice == 1)
-            {   
-                Create();
-            }
-            break;
-        case 4:
-            if(Subchoice == 1)
-            {
-                Delete();
-            }
-            break;
-        }
-    }
-    while(Iscontinue==true );
-};
-
-
-Employee EnterEmployeeInfor(Employee &employee)
-{   
-    int n;
-    cout<<"Choose Information that you want to edit"<<endl;
-    cout<<"1.FName: "<<endl;
-    cout<<"2.MInit_: "<<endl;
-    cout<<"3.LName_: "<<endl;
-    cout<<"4.SSN_: "<<endl;
-    cout<<"5.BDate_: "<<endl;
-    cout<<"6.Address_: "<<endl;
-    cout<<"7.Salary_: "<<endl;
-    cout<<"8.SuperSSN_: "<<endl;
-    cout<<"9.DNO_: "<<endl;
-    cout<<"10.SEX_: "<<endl;
-    cout<<"0. Stop"<<endl;
-    cout<<"Your Choice: ";
-    cin >> n;
-    switch (n)
-    {
-    case 1:
-        cout<<"Enter FName: ";
-        cin >> employee.FName;
-        break;
-    case 2: 
-        cout<<"Enter MInit_: ";
-        cin >> employee.MInit;
-        break;
-    case 3: 
-        cout<<"Enter LName_: ";
-        cin >> employee.LName;
-        break;
-    case 4: 
-        cout<<"Enter SSN_: ";
-        cin >> employee.SSN;
-        break;
-    case 5: 
-        cout<<"Enter BDate_: ";
-        cin >> employee.BDate;
-        break;
-    case 6: 
-        cout<<"Enter Address_: ";
-        cin >> employee.Address;
-        break;
-    case 7: 
-        cout<<"Enter Salary_: ";
-        cin >> employee.Salary;
-        break;
-    case 8: 
-        cout<<"Enter SuperSSN_: ";
-        cin >> employee.SuperSSN;
-        break;
-    case 9: 
-        cout<<"Enter DNO_: ";
-        cin >> employee.DNO;
-        break;
-    case 10: 
-        cout<<"Enter SEX_: ";
-        cin >> employee.Sex;
-        break;
-    
-    default:
-    cout<<" please Enter Again";
-        break;
-    }
-
-    return employee;
-}
-
-
-Dependent EnterDependentInfor(Dependent &dependent)
-{   
-    int n;
-    cout<<"Choose Information that you want to edit"<<endl;
-    cout<<"1.ESSN : "<<endl;
-    cout<<"2.DependentName : "<<endl;
-    cout<<"3.Sex : "<<endl;
-    cout<<"4.BDate : "<<endl;
-    cout<<"5.Relationship: "<<endl;
-    cout<<"0. Stop"<<endl;
-    cout<<"Your Choice: ";
-    cin >> n;
-    switch (n)
-    {
-    case 1:
-        cout<<"Enter ESSN: ";
-        cin >> dependent.ESSN;
-        break;
-    case 2: 
-        cout<<"Enter DependentName: ";
-        cin >> dependent.DependentName;
-        break;
-    case 3: 
-        cout<<"Enter Sex: ";
-        cin >> dependent.Sex;
-        break;
-    case 4: 
-        cout<<"Enter BDate: ";
-        cin >> dependent.BDate;
-        break;
-    case 5: 
-        cout<<"Enter Relationship: ";
-        cin >> dependent.Relationship;
-        break;
-    default:
-    cout<<" please Enter Again";
-        break;
-    }
-    return dependent;
-}
-
-Work_on EnterWork_onInfor(Work_on &work_on)
-{   
-    int n;
-    cout<<"Choose Information that you want to edit"<<endl;
-    cout<<"1. ESSN : "<<endl;
-    cout<<"2. PNO : "<<endl;
-    cout<<"3. Hours : "<<endl;
-    cout<<"0. Stop"<<endl;
-    cout<<"Your Choice: ";
-    cin >> n;
-    switch (n)
-    {
-    case 1:
-        cout<<"Enter ESSN: ";
-        cin >> work_on.ESSN;
-        break;
-    case 2: 
-        cout<<"Enter PNO: ";
-        cin >> work_on.PNO;
-        break;
-    case 3: 
-        cout<<"Enter Hours: ";
-        cin >> work_on.Hours;
-        break;
-    default:
-    cout<<" please Enter Again";
-        break;
-    }
-    return work_on;
-}
-
-Project EnterProjectInfor(Project &project)
-{   
-    int n;
-    cout<<"Choose Information that you want to edit"<<endl;
-    cout<<"1. ESSN : "<<endl;
-    cout<<"2. PNO : "<<endl;
-    cout<<"3. Hours : "<<endl;
-    cout<<"0. Stop"<<endl;
-    cout<<"Your Choice: ";
-    cin >> n;
-    switch (n)
-    {
-    case 1:
-        cout<<"Enter PName: ";
-        cin >> project.PName;
-        break;
-    case 2: 
-        cout<<"Enter PNumber: ";
-        cin >> project.PNumber;
-        break;
-    case 3: 
-        cout<<"Enter PLocation: ";
-        cin >> project.PLocation;
-        break;
-    case 4: 
-        cout<<"Enter DNum: ";
-        cin >> project.DNum;
-        break;
-    default:
-    cout<<" please Enter Again";
-        break;
-    }
-    return project;
-}
-
-Department EnterDepartmentInfor(Department &department)
-{   
-    int n;
-    cout<<"Choose Information that you want to edit"<<endl;
-    cout<<"1. DName : "<<endl;
-    cout<<"2. Dnumber : "<<endl;
-    cout<<"3. MgrSSN : "<<endl;
-    cout<<"4. MgrStartDate : "<<endl;
-    cout<<"0. Stop"<<endl;
-    cout<<"Your Choice: ";
-    cin >> n;
-    switch (n)
-    {
-    case 1:
-        cout<<"Enter PName: ";
-        cin >> department.DName;
-        break;
-    case 2: 
-        cout<<"Enter PNumber: ";
-        cin >> department.Dnumber;
-        break;
-    case 3: 
-        cout<<"Enter PLocation: ";
-        cin >> department.MgrSSN;
-        break;
-    case 4: 
-        cout<<"Enter DNum: ";
-        cin >> department.MgrStartDate;
-        break;
-    default:
-        cout<<" please Enter Again";
-        break;
-    }
-    return department;
-}
-
-int Ui::ChooseToEdit()
-{ 
-    cout<<"|** Please enter the Id of the Table that you want to edit **|" <<endl;
-    cout<<" ID: "; 
-    int n;
-    cin >> n;
-    return n;
-}
-
-void Ui::Create()
+void UI::RestructureCompany()
 {
-    bool isContinue = true;       
-    CompanyData* companyData = new EmployeeData("Employee.data");
-
-    while(isContinue){
-        // cout<<""
-        if(isContinue == 1){
-
-        int id; string fName; string mInit; string lName; long ssn; string bDate; string address; char sex; int salary; long superSSN; int dno;
-        
-        // cout<<"Id: "; cin>>id;
-        cout<<"First Name: "; cin>>fName; 
-        cout<<"Midle Name: "; cin>> mInit; 
-        cout<<"Last name: "; cin>>lName; 
-        cout<<"SSN: "; cin>>ssn; 
-        cout<<"Birthday: "; fflush(stdin); getline(cin, bDate); 
-        cout<<"Address: "; getline(cin, address); 
-        cout<<"Sex: "; cin>>sex; 
-        cout<<"Salary: "; cin>>salary; 
-        cout<<"super SSN "; cin>>superSSN; 
-        cout<<"DNO: "; cin>>dno;
-
-        Company* pC = new Employee(0, fName, mInit, lName, ssn, bDate, address, sex, salary, superSSN, dno);
-
-        companyData->AddMember(pC);
-        
-        }else if(isContinue == 0){
-            isContinue = false;
+    EmployeeData employeeArray("DataBase/Employee.data");
+    cout<<"Read file function"<<"\n";
+    for(int i=0; i<employeeArray.GetSize(); ++i){
+        Employee p = employeeArray.Get(i);
+        cout<<p.ToString()<<endl;
+    }
+    string name;
+    cout<<"Insert the name of manager: "; fflush(stdin); getline(cin, name);
+    cout<<"List employee of "<<endl;
+    for(int i = 0; i<name.size(); ++i)
+    {
+        if(name[i] == 32) 
+        {
+            name.erase(i, 1);
         }
-        cout<< "0. stop"<<endl; 
-        cin>>isContinue;
-        
-        companyData->ExportToFile("Employee.data");
+    }
+    cout<<employeeArray.Restructure(name);
+    
+}
+
+void UI::GetNameProjectHours()
+{
+    int projectNumber;
+    float projectHour;
+    string projectName;
+    cout<<" Enter the project number: "; cin>>projectNumber;
+    ProjectData projectData("DataBase/Project.data");
+    projectName = projectData.GetProjectName(projectNumber);
+    cout<<"The project name is: "<<projectName<<endl;
+
+    Work_onData work_onData("DataBase/Work_on.data");
+    projectHour = work_onData.GetHoursProject(projectNumber);
+    cout<<"Total hours is: "<<projectHour<<endl;
+
+}
+
+void UI::CalculateAverageSalary()
+{
+    string departmentName;
+    cout<<"Insert department name: "<<endl;
+    cin>>departmentName;
+    
+    DepartmentData departmentData("DataBase/Department.data");
+    EmployeeData employeeData("DataBase/Employee.data");
+
+    for(int i = 0; i < departmentData.GetSize(); ++i){
+        if(departmentData.Get(i).GetDName() == departmentName){
+            cout<<"Department number is: "<<departmentData.Get(i).GetDnumber()<<endl;
+            cout<<"Average salary: "<<employeeData.CalculateSalary(departmentData.Get(i).GetMgrSSN());
+        }
     }
 }
 
+void UI::GetHoursProjectEmployeeName()
+{
+    int projectNumber;
+    int departmentNumber;
+    ProjectData projectData("DataBase/Project.data");
+    Work_onData work_onData("DataBase/Work_on.data");
+    EmployeeData employeeData("DataBase/Employee.data");
 
-void Ui::Delete()
-{   int Id; 
-    cout<<"please Enter Id of table that you want to delete"<<endl;
-    cout<<"Id: "; cin >> Id;
-    CompanyData* companyData= new EmployeeData("Employee.data");
+    cout<<"Insert department number: "; cin>>departmentNumber;
+    cout<<"Insert project number: "; cin>>projectNumber;
+    //The results
+    cout<<"The project is: "<<projectData.GetProjectName(projectNumber, departmentNumber);
 
-    --Id;
-    companyData->DeleteMember(Id);
-    companyData->ExportToFile("Employee.data");
+    string nameMemberProject;
+    float hours = 0;
+
+    vector<Work_on> employeeProject;
+    employeeProject = work_onData.GetHoursProjectMin(projectNumber);
+    
+    vector<Employee> departmentMember;
+    departmentMember = employeeData.FindEmployeeDepartment(departmentNumber); 
+
+    for(int i = 0; i < employeeProject.size(); ++i)
+    {
+        for(int j = 0; j < departmentMember.size(); ++j)
+        {
+            if(employeeProject[i].GetESSN() == departmentMember[j].GetSSN())
+            {
+                if(hours == 0)
+                {
+                    hours = employeeProject[i].GetHours();
+                }
+                nameMemberProject += departmentMember[j].GetName() + " ";
+            }
+        }
+    }
+    cout<<"The names are: "<<endl;
+    cout<<nameMemberProject<<endl;
+    cout<<"The hous minimum is: "<< hours;
+    
+
 }
 
 
+// void UI::DeleteObject(CompanyData* companyData)
+// {
 
-
+// }

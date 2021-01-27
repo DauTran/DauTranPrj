@@ -66,8 +66,9 @@ Employee EmployeeData::Get(int i){
     return _data[i];
 }
 
-int EmployeeData::ExportToFile(string filename){
-    ofstream outFile(filename, ios::out);
+int EmployeeData::ExportToFile(string fileName){
+    fileName += "Employee.data";
+    ofstream outFile(fileName, ios::out);
     if(!outFile){
         return 0;
     }
@@ -78,16 +79,50 @@ int EmployeeData::ExportToFile(string filename){
     return 1;
 }
 
-//add am em with 
-bool EmployeeData::AddMember(Company* company){
+string EmployeeData::ShowOnFile()
+{
+    string str;
+    for(int i=0; i< _data.size(); ++i)
+    {
+        str += _data[i].ToString() + "\n";
+    }
+    return str;
+
+}
+
+//add am employee with 
+bool EmployeeData::AddMember()
+{
+    EmployeeUI employeeUI;
     _maxId++; // _maxId = 7 
-    Employee* employee =(Employee*) company;
+    Employee* employee = employeeUI.AddMemberUI();
     employee->Id = _maxId;
     _data.push_back(*employee);
     return true;
 }
 
-bool EmployeeData::DeleteMember(int i){
+bool EmployeeData::UpdateMember()
+{
+    EmployeeUI employeeUI;
+    Employee* employee = employeeUI.UpdateMemberUI();
+
+    int id = employee->GetId();
+    if(employee->GetFName() != "0") _data[id].FName = employee->GetFName();
+    if(employee->GetMInit() != "0") _data[id].MInit = employee->GetMInit();
+    if(employee->GetLName() != "0") _data[id].LName = employee->GetLName();
+    if(employee->GetSSN() != 0) _data[id].SSN = employee->GetSSN();
+    if(employee->GetBDate() != "0")   _data[id].BDate = employee->GetBDate();
+    if(employee->GetAddress() != "0") _data[id].Address = employee->GetAddress();
+    if(employee->GetSex() != '0')     _data[id].Sex = employee->GetSex();
+    if(employee->GetSalary() != 0)  _data[id].Salary = employee->GetSalary();
+    if(employee->GetSuperSSN() != 0) _data[id].SuperSSN = employee->GetSuperSSN();
+    if(employee->GetDNO() != 0)      _data[id].DNO = employee->GetDNO();
+    return true;
+}
+
+bool EmployeeData::DeleteMember(){
+    EmployeeUI employeeUI;
+    int i = employeeUI.DeleteMemberUI();
     if(i < 0){
         return false;
     }else{
@@ -120,7 +155,6 @@ string EmployeeData::Restructure(string supervisorName){
             break;
         }
     }
-    // if(ssn == -1) return " ";
     for(int i = 0; i < _data.size(); ++i){
         if((_data[i].SuperSSN - ssn) == 0){
             employeeList = employeeList + " ";
@@ -144,5 +178,18 @@ float EmployeeData::CalculateSalary(long mgrSSN){
     return averageSalary;
 }
 
-
+vector<Employee> EmployeeData::FindEmployeeDepartment(int dno){
+    //Initial no employee
+    vector<Employee> departmentMember;
+    departmentMember.resize(0);
+    for(int i = 0; i < _data.size(); ++i)
+    {
+        if(_data[i].DNO == dno)
+        {
+            departmentMember.push_back(_data[i]);
+        }
+    }
+    
+    return departmentMember;
+}
 

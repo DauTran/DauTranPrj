@@ -23,5 +23,9 @@ public:
     string ToString();
     json ToJson();
     friend Work_on EnterWork_onInfor(Work_on &Work_on);
+
+    long GetESSN();
+    int GetPNO();
+    float GetHours();
 };
 #endif

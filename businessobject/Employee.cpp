@@ -61,6 +61,44 @@ json Employee::ToJson(){
     return j;
 }
 
+string Employee::GetName()
+{
+    return (FName + LName);
+}
+
+string Employee::GetFName()
+{
+    return FName;
+}
+string Employee::GetMInit()
+{
+    return MInit;
+}
+string Employee::GetLName()
+{
+    return LName;
+}
+long Employee::GetSSN()
+{
+    return SSN;
+}
+string Employee::GetBDate()
+{
+    return BDate;
+}
+string Employee::GetAddress()
+{
+    return Address;
+}
+char Employee::GetSex() 
+{
+    return Sex;
+}
+int Employee::GetDNO()
+{
+    return DNO;
+}
+
 int Employee::GetSalary(){
     return Salary;
 }

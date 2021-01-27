@@ -29,3 +29,16 @@ json DeptLocations::ToJson(){
     return j;
     
 }
+
+int DeptLocations::GetId()
+{
+    return Id;
+}
+int DeptLocations::GetDNumber()
+{
+    return DNumber;
+}
+string DeptLocations::GetDLocation()
+{
+    return DLocation;
+}
